@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>form</title>
+        <style>
+            .form-container{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: purple;
+                width: 500px;
+                height: 500px;
+
+            }
+            div{
+                display: flex;
+                justify-content: space-between;
+            }
+            input{
+                
+                border: none;
+                border-bottom: 2px solid red;
+                background-color: purple;
+                margin-left: 20px;
+            
+            }
+        </style>
+    </head>
+    <body>
+        <div class="form-container">
+            <form>
+                <div>
+                    <label for="job-profile">Job Profile</label>
+                    <input type="text" name="job-profile" id="job-profile">
+                </div>
+                <div>
+                    <label for="id">Id</label>
+                    <input type="number" name="id" id="id">
+                </div>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name">
+                </div>
+                <div>
+                    <label for="email">E-mail</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <div>
+                    <label for="office-code">Office Code</label>
+                    <input type="number" name="office-code" id="office-code">
+                </div>
+                <div class="button-container">
+                    <button>Add</button>
+                    <button>Update</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

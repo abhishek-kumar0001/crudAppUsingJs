@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Employee Records</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body{
+                background-color: #ffffff;
+                font-size: 18px;
+            }
+            caption{
+                text-align: center;
+                margin-bottom: 20px;
+                font-size: 25px;
+                font-weight: 600;
+            }
+            table{
+                border: 1px solid black;
+                width: 80%;
+                border-collapse: collapse;
+                margin: 20px auto;
+            }
+            th{
+                background-color: #7f11e5;
+                color: #ffffff;
+            }
+            th,td{
+                border: 1px solid black;
+                padding: 20px;
+                text-align: center;
+            }
+            td img{
+                width: 25px;
+                margin: 0 5px;
+            }
+
+            .form-container{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            form{
+                display: none;
+                background-color: #0a9284;
+                width: 500px;
+                height: 250px;
+                padding: 25px 100px;
+                border-radius: 10px ;
+            }
+            div{
+                display: flex;
+                align-items:center;
+                justify-content: space-between;
+                margin-top: 10px;
+            }
+            input{
+                border: none;
+                border-bottom: 2px solid #4e2902;
+                background-color: #0a9284;
+                text-align: center;
+            }
+            input:focus{
+                outline: none;
+            }
+            .btn-container{
+                margin-top: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+            }
+            button{
+                padding: 10px 20px;
+                border-radius: 10px;
+                border-style: none;
+                color: #ffffff;
+            }
+            #btn-register{
+                background-color: green;
+            }
+            #btn-update{
+                background-color: #494747;
+            }
+            #add{
+                display: block;
+                background-color: #0000ff;
+                margin: 0 auto;
+                
+            }
+        </style>
+    </head>
+    <body>
+        
+        <table>
+            <caption>Employee Records</caption>
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Job Profile</th>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>Office Code</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="tableData">
+
+            </tbody>
+        </table>
+        <button type="button" id="add" onclick="create()">Add</button>
+        
+        <!-- employee adding form -->
+
+        <div class="form-container">
+            <form class="create-form">
+                <div>
+                    <label for="job-profile">Job Profile</label>
+                    <input type="text" name="job-profile" id="job-profile">
+                </div>
+                <div>
+                    <label for="id">Id</label>
+                    <input type="number" name="id" id="id">
+                </div>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name">
+                </div>
+                <div>
+                    <label for="email">E-mail</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <div>
+                    <label for="office-code">Office Code</label>
+                    <input type="number" name="office-code" id="office-code">
+                </div>
+                <div class="btn-container">
+                    <button type="button" id="btn-register" onclick="register()">Register</button>
+                    <button type="button" id="btn-update">Update</button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            let data = [
+                {
+                    srNo: 1, 
+                    jobProfile: "Full Stack Developer",
+                    id: 101,
+                    name: "Abhishek Kumar",
+                    email: "abhishek123@gmail.com",
+                    officeCode: 2001,
+                },
+                {
+                    srNo: 2, 
+                    jobProfile: "Android Developer",
+                    id: 102,
+                    name: "Akash Kumar",
+                    email: "akash123@gmail.com",
+                    officeCode: 2002,
+                }
+            ]
+            
+            function readAll(){
+                localStorage.setItem("empInfo",JSON.stringify(data));
+                let tableData = document.querySelector(".tableData");
+                let empInfo = localStorage.getItem("empInfo");
+                let objectData = JSON.parse(empInfo);
+                let elements = ""; 
+                objectData.forEach((record)=>{
+                    elements += `<tr>
+                        <td>${record.srNo}</td>
+                        <td>${record.jobProfile}</td>
+                        <td>${record.id}</td>
+                        <td>${record.name}</td>
+                        <td>${record.email}</td>
+                        <td>${record.officeCode}</td>
+                        <td>
+                            <img src="./assets/edit-icon.png" alt="Update" class="update">
+                            <img src="./assets/delete-icon.png" alt="Delete" class="delete">
+                        </td>
+                    </tr>`
+                })
+                tableData.innerHTML = elements;
+            }
+            readAll();
+
+            function create(){
+                document.querySelector('.create-form').style.display = "block";
+                document.querySelector('#add').style.display = "none";
+            }
+            function register(){
+                let newObj = {
+                    srNo:data.length+1, 
+                    jobProfile: document.querySelector("#job-profile").value,
+                    id: document.querySelector("#id").value,
+                    name: document.querySelector("#name").value,
+                    email: document.querySelector("#email").value,
+                    officeCode: document.querySelector("#office-code").value,
+                }
+                data.push(newObj);
+                document.querySelector('.create-form').style = "none;";
+                document.querySelector('#add').style.display = "block";
+                readAll(); 
+            }
+
+        </script>
+    </body>
+</html>
